@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+    var name = "";
+    var location = "";
+    var time = "";
+    var advisor = "";
+    var cost = "";
+    var information = "";
+    var clubsId = "";
+ 
+    Validation.RequireField("name", " *Required");
+    Validation.RequireField("location", " *Required");
+    Validation.RequireField("time", " *Required");
+    Validation.RequireField("advisor", " *Required");
+    Validation.RequireField("cost", " *Required");
+    Validation.RequireField("information", " *Required");
+   
+ 
+ 
+    if(!IsPost){
+        if(!Request.QueryString["ID"].IsEmpty()){
+            clubsId = Request.QueryString["ID"];
+            var db = Database.Open("WebPagesClubs");
+            var dbCommand = "SELECT * FROM ClubsTable WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, clubsId);
+ 
+            if(row !=null) {
+            name = row.Club;
+            location = row.Location;
+            time = row.Time;
+            advisor = row.Advisor;
+            cost = row.Cost;
+            information = row.Information;
+        }
+        else{
+            Validation.AddFormError("No club was selected.");
+        }
+    }
+}
+ 
+    if(IsPost){
+        Validation.RequireField("name", "Required");
+        Validation.RequireField("location", "Required");
+        Validation.RequireField("time", "Required");
+        Validation.RequireField("advisor", "Required");
+        Validation.RequireField("cost", "Required");
+        Validation.RequireField("information", "Required");
+        Validation.RequireField("clubsid", "No club ID was submitted!");
+ 
+        name = Request.Form["name"];
+        location = Request.Form["location"];
+        time = Request.Form["time"];
+        advisor = Request.Form["advisor"];
+        cost = Request.Form["cost"];
+        information = Request.Form["information"];
+ 
+        clubsId = Request.Form["clubsId"];
+ 
+        if(Validation.IsValid()){
+            var db = Database.Open("WebPagesClubs");
+            var updateCommand = "UPDATE ClubsTable SET Club=@0, Location=@1, Time=@2, Advisor=@3, Cost=@4, Information=@5 WHERE Id=@6";
+            db.Execute(updateCommand, name, location, time, advisor, cost, information, clubsId);
+            Response.Redirect("~/Clubs");
+        }
+    }
+}
+ 
+<!DOCTYPE html>
+<html>
+  <head>
+   <meta charset="utf-8" />
+   <title>Edit a Club</title>
+  </head>
+</head>
+<body>
+  <h2>Edit a Club</h2>
+  <form method="post">
+    <fieldset>
+        <img class="two" src="whitmanlogo.jpg" alt="vikings" style="width:400px;height:228px;"/>
+      <legend>Club Information</legend>
+ 
+      <p><label for="name">Name of Club:</label>
+         <input type="text" name="name" value="@name" />
+        @Html.ValidationMessage("name")</p>
+ 
+      <p><label for="location">Location:</label>
+         <input type="text" name="location" value="@location" />
+       @Html.ValidationMessage("location")</p>
+ 
+      <p><label for="time">Meeting Time:</label>
+         <input type="text" name="time" value="@time" />
+      @Html.ValidationMessage("time")</p>
+ 
+      <p><label for="advisor">Advisor:</label>
+         <input type="text" name="advisor" value="@advisor" />
+      @Html.ValidationMessage("advisor")</p>
+ 
+      <p><label for="cost">Cost:</label>
+         <input type="text" name="cost" value="@cost" />
+         @Html.ValidationMessage("cost")</p>
+ 
+      <p><label for="information">Information:</label>
+       <input type="text" name="information" value="@information" />
+      @Html.ValidationMessage("information")</p>
+ 
+ 
+      <input type="hidden" name="clubsid" value="@clubsId" />
+ 
+      <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
+    </fieldset>
+  </form>
+     <p><a class="one" href="~/clubs">Return to clubs listing</a></p>
+</body>
+</html>

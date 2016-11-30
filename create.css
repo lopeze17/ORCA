@@ -1,0 +1,37 @@
+body {
+  background-image:url("water.jpg");
+  background-size:100%;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+}
+h1{
+    color: #e0ffff;
+    text-align: center;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-style: bold;
+    font-size: 50px;
+     }
+label {
+    font-size: 1.2em;
+    color: white;
+    font-family: 'Trebuchet MS',  'Arial', 'Helvetica', 'sans-serif';
+}
+legend {
+    font-size:  1.4em;
+    color: white;
+    font-family: 'Trebuchet MS',  'Arial', 'Helvetica', 'sans-serif';
+}
+h2{
+    text-align: center;
+    color: white;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 1.4em;
+}
+a:link {
+    color: white;
+    text-align: center;
+    
+}
+a:visited { color: white; 
+            
+}

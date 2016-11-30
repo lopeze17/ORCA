@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+    var name = "";
+    var location = "";
+    var time = "";
+    var advisor = "";
+    var cost = "";
+    var information = "";
+    var clubsId = "";
+ 
+    if(!IsPost){
+        if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()){
+            clubsId = Request.QueryString["ID"];
+            var db = Database.Open("WebPagesClubs");
+            var dbCommand = "SELECT * FROM ClubsTable WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, clubsId);
+            if(row != null) {
+                name = row.Club;
+                location = row.Location;
+                time =row.Time;
+                advisor =row.Advisor;
+                cost =row.Cost;
+                information =row.Information;
+ 
+            }
+            else{
+                Validation.AddFormError("No club was found for that ID.");
+            }
+        }
+        else{
+            Validation.AddFormError("No club was found for that ID.");
+        }
+  
+   }
+ 
+      if(IsPost && !Request["buttonDelete"].IsEmpty()){
+        clubsId = Request.Form["clubsId"];
+        var db = Database.Open("WebPagesClubs");
+        var deleteCommand = "DELETE FROM ClubsTable WHERE ID = @0";
+        db.Execute(deleteCommand, clubsId);
+        Response.Redirect("~/Clubs");
+    }
+}
+ 
+<html>
+<head>
+  <title>Delete a Club</title>
+</head>
+<body>
+      <h2>Delete a Club</h2>
+        @Html.ValidationSummary()
+      
+ 
+      <form method="post">
+        <fieldset>
+            <img class="three"src="whitmanlogo.jpg" alt="vikings" style="width:400px;height:228px;"/>
+        <legend>Are you sure?</legend>
+ 
+        <p><span>Name of Club:</span>
+         <span>@name</span></p>
+ 
+        <p><span>Location:</span>
+         <span>@location</span></p>
+ 
+        <p><span>Meeting Time:</span>
+          <span>@time</span></p>
+ 
+        <p><span>Advisor:</span>
+          <span>@advisor</span></p>
+ 
+         <p><span>Cost:</span>
+          <span>@cost</span></p>
+ 
+         <p><span>Information:</span>
+          <span>@information</span></p>
+ 
+ 
+ 
+        <input type="hidden" name="clubsid" value="@clubsId" />
+        <p><input type="submit" name="buttonDelete" value="Delete Club" /></p>
+        </fieldset>
+      </form>
+    <br></br>
+    <p><a class="one" href="~/clubs">Return to clubs listing</a></p>
+    </body>
+</html>

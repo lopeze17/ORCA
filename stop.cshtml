@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/_Student.cshtml";
+    Validation.RequireField("firstname", " *Required");
+    Validation.RequireField("lastname", " *Required");
+    Validation.RequireField("notification", " *Required");
+    Validation.RequireField("comment", " *Required");
+    Validation.RequireField("date", " *Required");
+    Validation.RequireField("lesson", " *Required");
+    Validation.RequireField("teacher", " *Required");
+   
+   
+    var firstname = "";
+    var lastname = "";
+    var notification = "";
+    var comment = "";
+    var date = "";
+    var lesson = "";
+    var teacher = "";
+ 
+    if(IsPost && Validation.IsValid()){
+        firstname = Request.Form["firstname"];
+        lastname = Request.Form["lastname"];
+        notification = Request.Form["notification"];
+        comment = Request.Form["comment"];
+        date = Request.Form["date"];
+        lesson = Request.Form["lesson"];
+        teacher = Request.Form["teacher"];
+        var db = Database.Open("WebNotifications");
+        var insertCommand = "INSERT INTO NotificationsTable (Firstname, Lastname, Notification, Comment, Date, Lesson, Teacher) VALUES(@0, @1, @2, @3, @4, @5,@6)";
+        db.Execute(insertCommand, firstname, lastname, notification, comment, date, lesson, teacher);
+        Response.Redirect("~/studenthomepage");
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>HELP</title>
+ 
+</head>
+<body>
+ 
+  <form method="post">
+       
+    <fieldset>
+      <legend>What do you need help with?</legend>
+              <p><label for="teacher">Teacher:</label>
+         <input type="text" name="teacher" value="@Request.Form["teacher"]" />
+          @Html.ValidationMessage("teacher")
+      </p>
+
+      <p><label for="firstname">First Name:</label>
+         <input type="text" name="firstname" value="@Request.Form["firstname"]" />
+          @Html.ValidationMessage("firstname")
+      </p>
+ 
+      <p><label for="lastname">Last Name:</label>
+         <input type="text" name="lastname" value="@Request.Form["lastname"]" />
+          @Html.ValidationMessage("lastname")
+      </p>
+ 
+      <p><label for="notificaton">Level of Understanding:</label>
+         <input type="text" name="notification" value="@Request.Form["notification"]" />
+          @Html.ValidationMessage("notification")
+      </p>
+ 
+      <p><label for="date">Date:</label>
+         <input type="text" name="date" value="@Request.Form["date"]" />
+          @Html.ValidationMessage("date")
+      </p>
+ 
+      <p><label for="lesson">Lesson:</label>
+         <input type="text" name="lesson" value="@Request.Form["lesson"]" />
+          @Html.ValidationMessage("lesson")
+      </p>
+ 
+      <p><label for="comment">Comment:</label>
+         <textarea name="comment" rows="5" cols="25"></textarea>
+          @Html.ValidationMessage("comment")
+      </p>
+      <p><input type="submit" name="buttonSubmit" value="Submit" /></p>
+    </fieldset>
+  </form>
+    <a class="one" href="~/studenthomepage">Return home</a>
+   
+</body>
+</html>
+
+

@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+    Validation.RequireField("name", " *Required");
+    Validation.RequireField("location", " *Required");
+    Validation.RequireField("time", " *Required");
+    Validation.RequireField("advisor", " *Required");
+    Validation.RequireField("cost", " *Required");
+    Validation.RequireField("information", " *Required");
+   
+   
+    var name = "";
+    var location = "";
+    var time = "";
+    var advisor = "";
+    var cost = "";
+    var information = "";
+ 
+    if(IsPost && Validation.IsValid()){
+        name = Request.Form["name"];
+        location = Request.Form["location"];
+        time = Request.Form["time"];
+        advisor = Request.Form["advisor"];
+        cost = Request.Form["cost"];
+        information = Request.Form["information"];
+        var db = Database.Open("WebPagesClubs");
+        var insertCommand = "INSERT INTO ClubsTable (Club, Location, Time, Advisor, Cost, Information) VALUES(@0, @1, @2, @3, @4, @5)";
+        db.Execute(insertCommand, name, location, time, advisor, cost, information);
+        Response.Redirect("~/clubs");
+    }
+}
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Add a Club</title>
+ 
+</head>
+<body>
+  <h2>Add a Club</h2>
+  <form method="post">
+       
+    <fieldset>
+      <img class="one" src="whitmanlogo.jpg" alt="vikings" style="width:400px;height:228px;"/>
+      <legend>Club Information</legend>
+      <p><label for="name">Name of Club:</label>
+         <input type="text" name="name" value="@Request.Form["name"]" />
+          @Html.ValidationMessage("name")
+      </p>
+ 
+      <p><label for="location">Location:</label>
+         <input type="text" name="location" value="@Request.Form["location"]" />
+          @Html.ValidationMessage("location")
+      </p>
+ 
+      <p><label for="time">Meeting Time:</label>
+         <input type="text" name="time" value="@Request.Form["time"]" />
+          @Html.ValidationMessage("time")
+      </p>
+ 
+      <p><label for="coach">Advisor:</label>
+         <input type="text" name="advisor" value="@Request.Form["advisor"]" />
+          @Html.ValidationMessage("advisor")
+      </p>
+ 
+      <p><label for="cost">Cost:</label>
+         <input type="text" name="cost" value="@Request.Form["cost"]" />
+          @Html.ValidationMessage("cost")
+      </p>
+ 
+      <p><label for="information">Information:</label>
+         <textarea name="information" rows="5" cols="25"></textarea>
+          @Html.ValidationMessage("information")
+      </p>
+      <p><input type="submit" name="buttonSubmit" value="Add Club" /></p>
+    </fieldset>
+  </form>
+    <a class="one" href="~/clubs">Return to clubs listing</a>
+   
+</body>
+</html>
+

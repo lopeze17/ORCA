@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+    var db = Database.Open("WebNotifications") ;
+    var selectCommand = "SELECT * FROM NotificationsTable";
+    var searchTerm = "";
+ 
+    if(!Request.QueryString["searchClubs"].IsEmpty() ) {
+        selectCommand = "SELECT * FROM NotificationsTable WHERE Firstname = @0";
+        searchTerm = Request.QueryString["searchClubs"];
+    }
+ 
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var grid = new WebGrid(source: selectedData, defaultSort: "Firstname");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<style>
+.container{
+  width:100px;
+  color: black;
+}
+</style>
+<head>
+  <meta charset="utf-8">
+</head>
+
+
+
+
+<body>
+
+<h2>Notifications</h2>
+ <br></br>
+        <form method="get">
+  <div class="two">
+    <label for="searchNotifications">Search by name: </label>
+    <input type="text" name="searchNotifications" value="" />
+    <input type="Submit" value="Search" /><br/>
+    <br/>
+    </div>
+</form>
+ 
+<div class="one">
+    @grid.GetHtml(    
+    tableStyle: "grid",
+    headerStyle: "head",
+    alternatingRowStyle: "alt",
+    columns: grid.Columns(
+        grid.Column("Teacher"),
+        grid.Column("Firstname"),
+        grid.Column("Lastname"),
+        grid.Column("Notification"),
+        grid.Column("Date"),
+        grid.Column("Lesson"),
+        grid.Column("Comment")
+        
+        ))
+</div>
+    <div class="two">
+    <a class="one"href="~/notification">Return to notifications</a>
+        </div>
+</body>
+</html>

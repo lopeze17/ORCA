@@ -1,0 +1,65 @@
+﻿@{
+    Validation.RequireField("first", " *Required");
+    Validation.RequireField("last", " *Required");
+    Validation.RequireField("username", " *Required");
+    Validation.RequireField("pass", " *Required");
+    Validation.RequireField("email", " *Required");
+
+    var first = "";
+    var last = "";
+    var username = "";
+    var pass = "";
+    var email = "";
+    
+    if(IsPost  && Validation.IsValid()){
+        first = Request.Form["first"];
+        last = Request.Form["last"];
+        username = Request.Form["username"];
+        pass = Request.Form["pass"];
+        email = Request.Form["email"];
+        var db = Database.Open("Login");
+        var insertCommand = "INSERT INTO UserProfiles ([First Name], [Last Name], Username, Password, Email) VALUES(@0, @1, @2, @3, @4)";
+        db.Execute(insertCommand, first, last, username, pass, email);
+        Response.Redirect("~/homepage.cshtml");
+    }
+}
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Create an Account</title>
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="~/Styles/create.css"> 
+  <h1>Create your ORCAnizer Account</h1>
+    <h2><a href="~/first.cshtml">Home</a></h2>
+  <form method="post">
+    <fieldset>
+      <legend>Create an Account</legend>
+      <p><label for="first">First Name:</label>
+         <input type="text" name="first" value="@Request.Form["first"]" />
+      </p>
+ 
+      <p><label for="last">Last Name:</label>
+         <input type="text" name="last" value="@Request.Form["last"]" />
+      </p>
+ 
+      <p><label for="username">Username:</label>
+         <input type="text" name="username" value="@Request.Form["username"]" />
+      </p>
+ 
+      <p><label for="pass">Password:</label>
+         <input type="password" name="pass" value="@Request.Form["pass"]" />
+      </p>
+ 
+      <p><label for="email">Email:</label>
+         <input type="text" name="email" value="@Request.Form["email"]" />
+      </p>
+        
+      </p>
+      <p><link href ="~/homepage"><input type="submit" name="buttonSubmit" value="Create Account"></a></p>
+    </fieldset>
+  </form>
+</body>
+</html>

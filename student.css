@@ -1,0 +1,211 @@
+html{ height:100%; margin:0; padding:0; }
+ 
+body {
+  height:60%;
+  font-family:'Trebuchet MS',  'Arial', 'Helvetica', 'sans-serif';
+  font-size:10pt;
+  background-color: LightGray;
+  line-height:1.6em;
+}
+ 
+h1{ font-size:2.0em;
+    text-align: center;
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+h2{ font-size:2em; 
+    font-family: "Arial Black", Gadget, sans-serif;
+    color: white;
+    text-align: center;
+}
+ 
+#container{
+   min-height:100%;
+   position:relative;
+   left:10%;
+}
+ 
+#header{
+  padding:8px;
+  width:80%;
+  background-color:black;
+  color:White;
+  text-align: center;
+}
+ 
+#main{
+  width:80%;
+  padding: 8px;
+  padding-bottom:4em;
+  background-image:url("water.jpg");
+  background-size:100%;
+  background-repeat:no-repeat;
+
+  background-attachment: fixed;
+}
+ 
+#footer{
+  width:80%;
+  height:2em;
+  padding:8px;
+  margin-top:-2em;
+  background-color:black;
+  font-size: 1.2em;
+  text-align: right;
+  color: white;
+}
+ 
+.head { background-color: #6699ff; font-weight: bold; color: #FFF; }
+.grid th, .grid td { border: 2px solid black; padding: 10px;}
+.grid{background-color: white;}
+.alt { background-color: #fff; color: #000; }
+.selected {background-color:white;}
+span.caption {width:100px; }
+span.dataDisplay {font-weight:bold;}
+  .field-validation-error {
+      font-weight:bold;
+      color: red;
+     }
+      .validation-summary-errors{
+        color:red;
+        font-weight:bold;
+        margin:12px;
+      }
+img.one {
+    float:  right;
+    margin-right: 100px;
+    margin-top: 45px;
+}
+
+img.two {
+    float: right;
+    margin-top: 15px;
+    margin-right: 50px;
+        
+}
+
+img.three {
+    float: right;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+ 
+label {
+    font-size: 1.2em;
+    color: white;
+}
+legend {
+    font-size:  1.4em;
+    color: white;
+}
+div.one {
+    text-align: center;
+    margin-left: 200px;
+    margin-right: 200px;
+        
+}
+div.two {
+    text-align: center;
+   
+}
+ 
+div.three {
+    margin-left: 475px;
+    color: white;
+}
+ div.box {
+    margin-left: 200px;
+    margin-right: 200px;
+}
+ 
+a.one:link {
+    color: white;
+    text-align: center;
+    
+}
+a.one:visited { color: white; 
+            
+}
+ 
+p {
+    color: white;
+
+}
+ 
+a.two:link {
+    color: blue;
+    
+    
+}
+a.two:visited { 
+    color: blue; 
+            
+}
+
+p.one {
+    text-align: center;
+    font-size: 1.6em;
+    color: white;
+    margin-left: 100px;
+}
+
+img.four {
+    margin-left: 348px;
+    margin-top: 25px;
+    margin-bottom: 50px;
+    border: 5px double white;
+}
+
+h2.one {
+    text-decoration: underline;
+    color: #6699ff;
+}
+p.two{
+    color: black;
+    text-align: center;
+    font-size: 1.2em;
+}
+p.three{
+     float: right;
+    font-size: 1.6em;
+    color: white;
+    margin-right: 20px;
+    
+}
+h2.two {
+	text-align: center;
+    font-size: 1.5em;
+ 
+}
+a.button {
+    font-family:'Trebuchet MS',  'Arial', 'Helvetica', 'sans-serif';
+    font-size: 1.6em;
+    color: white; 
+}
+.buttonone {
+    background-color: red; 
+    color: white;
+    padding: 50px 150px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+}
+
+.buttontwo {
+    background-color: green; 
+    color: white;
+    padding: 50px 150px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+}
+.buttonthree {
+    background-color: #b200ff;
+    color: white;
+    padding: 50px 120px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+}

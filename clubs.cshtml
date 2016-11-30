@@ -1,0 +1,59 @@
+﻿@{
+   Layout = "~/_Layout.cshtml";
+    var db = Database.Open("WebPagesClubs") ;
+    var selectCommand = "SELECT * FROM ClubsTable";
+    var searchTerm = "";
+ 
+    if(!Request.QueryString["searchClubs"].IsEmpty() ) {
+        selectCommand = "SELECT * FROM ClubsTable WHERE Club = @0";
+        searchTerm = Request.QueryString["searchClubs"];
+    }
+ 
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var grid = new WebGrid(source: selectedData, defaultSort: "Club", rowsPerPage:6);
+ 
+}
+ 
+<!DOCTYPE html>
+ 
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8" />
+        <title>Clubs Homepage</title>   
+    </head>
+    <body>
+        <h2>Clubs</h2>
+        <form method="get">
+  <div >
+    <label for="searchClubs">Search for a Club: </label>
+    <input type="text" name="searchClubs" value="" />
+    <input type="Submit" value="Search" /><br/>
+    <br/>
+    </div>
+</form>
+
+<div class="two">
+    @grid.GetHtml(    
+tableStyle: "grid",
+    headerStyle: "head",
+    alternatingRowStyle: "alt",
+    columns: grid.Columns(
+        grid.Column("Club"),
+        grid.Column("Location"),
+        grid.Column("Time"),
+        grid.Column("Advisor"),
+        grid.Column("Cost"),
+        grid.Column("Information"),
+        grid.Column(format: @<a class="two" href="~/EditClubs?id=@item.ID">Edit</a>),
+        grid.Column(format: @<a class="two" href="~/DeleteClubs?id=@item.ID">Delete</a>)
+        ))
+</div>
+        <div class="two">
+</p><a class="one" href="Page.cshtml">Click here to add another club.</a> 
+        <br>
+        <a class="one"href="~/clubs">Return to clubs listing</a>
+    </div>
+    </body>
+</html>
+

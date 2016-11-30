@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+    var sport = "";
+    var location = "";
+    var time = "";
+    var coach = "";
+    var cost = "";
+    var information = "";
+    var sportsId = "";
+ 
+    if(!IsPost){
+        if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()){
+            sportsId = Request.QueryString["ID"];
+            var db = Database.Open("WebPagesSports");
+            var dbCommand = "SELECT * FROM SportsTable WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, sportsId);
+            if(row != null) {
+                sport = row.Sport;
+                location = row.Location;
+                time =row.Time;
+                coach =row.Coach;
+                cost =row.Cost;
+                information =row.Information;
+ 
+            }
+            else{
+                Validation.AddFormError("No sport was found for that ID.");
+            }
+        }
+        else{
+            Validation.AddFormError("No sport was found for that ID.");
+        }
+  
+   }
+ 
+      if(IsPost && !Request["buttonDelete"].IsEmpty()){
+        sportsId = Request.Form["sportsId"];
+        var db = Database.Open("WebPagesSports");
+        var deleteCommand = "DELETE FROM SportsTable WHERE ID = @0";
+        db.Execute(deleteCommand, sportsId);
+        Response.Redirect("~/sports");
+    }
+}
+ 
+<html>
+<head>
+  <title>Delete a Sport</title>
+</head>
+<body>
+      <h2>Delete a Sport</h2>
+        @Html.ValidationSummary()
+      
+ 
+      <form method="post">
+        <fieldset>
+            <img class="three"src="whitmanlogo.jpg" alt="vikings" style="width:400px;height:228px;"/>
+        <legend>Are you sure?</legend>
+ 
+        <p><span>Name of sport:</span>
+         <span>@sport</span></p>
+ 
+        <p><span>Location:</span>
+         <span>@location</span></p>
+ 
+        <p><span>Meeting Time:</span>
+          <span>@time</span></p>
+ 
+        <p><span>Coach:</span>
+          <span>@coach</span></p>
+ 
+         <p><span>Cost:</span>
+          <span>@cost</span></p>
+ 
+         <p><span>Information:</span>
+          <span>@information</span></p>
+ 
+ 
+ 
+        <input type="hidden" name="sportsid" value="@sportsId" />
+        <p><input type="submit" name="buttonDelete" value="Delete Sport" /></p>
+        </fieldset>
+      </form>
+    <br></br>
+    <p><a class="one" href="~/clubs">Return to sports listing</a></p>
+    </body>
+</html>
+

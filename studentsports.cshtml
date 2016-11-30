@@ -1,0 +1,57 @@
+﻿@{
+   Layout = "~/_Student.cshtml";
+    var db = Database.Open("WebPagesSports") ;
+    var selectCommand = "SELECT * FROM SportsTable";
+    var searchTerm = "";
+ 
+    if(!Request.QueryString["searchSports"].IsEmpty() ) {
+        selectCommand = "SELECT * FROM SportsTable WHERE Sport = @0";
+        searchTerm = Request.QueryString["searchSports"];
+    }
+ 
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var grid = new WebGrid(source: selectedData, defaultSort: "Sport");
+ 
+}
+ 
+<!DOCTYPE html>
+ 
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Sports</title>   
+    </head>
+    <body>
+        <br></br>
+        <form method="get">
+  <div class="two">
+    <label for="searchSports">Search for a Sport: </label>
+    <input type="text" name="searchSports" value="" />
+    <input type="Submit" value="Search" /><br/>
+    <br/>
+    </div>
+</form>
+ 
+<div class="one">
+    @grid.GetHtml(    
+    tableStyle: "grid",
+    headerStyle: "head",
+    alternatingRowStyle: "alt",
+    columns: grid.Columns(
+        grid.Column("Sport"),
+        grid.Column("Location"),
+        grid.Column("Time"),
+        grid.Column("Coach"),
+        grid.Column("Cost"),
+        grid.Column("Information")
+        ))
+</div>
+        <div class="three">
+        <br>
+        <a class="one" href="~/studentsports">Return to sports listing</a>
+            </div>
+    </body>
+</html>
+
+
+

@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+    Validation.RequireField("sport", " *Required");
+    Validation.RequireField("location", " *Required");
+    Validation.RequireField("time", " *Required");
+    Validation.RequireField("coach", " *Required");
+    Validation.RequireField("cost", " *Required");
+    Validation.RequireField("information", " *Required");
+   
+   
+    var sport = "";
+    var location = "";
+    var time = "";
+    var coach = "";
+    var cost = "";
+    var information = "";
+ 
+    if(IsPost && Validation.IsValid()){
+        sport = Request.Form["sport"];
+        location = Request.Form["location"];
+        time = Request.Form["time"];
+        coach = Request.Form["coach"];
+        cost = Request.Form["cost"];
+        information = Request.Form["information"];
+        var db = Database.Open("WebPagesSports");
+        var insertCommand = "INSERT INTO SportsTable (Sport, Location, Time, Coach, Cost, Information) VALUES(@0, @1, @2, @3, @4, @5)";
+        db.Execute(insertCommand, sport, location, time, coach, cost, information);
+        Response.Redirect("~/sports");
+    }
+}
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Add a Sport</title>
+ 
+</head>
+<body>
+  <h2>Add a Sport</h2>
+  <form method="post">
+       
+    <fieldset>
+      <img class="one" src="whitmanlogo.jpg" alt="vikings" style="width:400px;height:228px;"/>
+      <legend>Sport Information</legend>
+      <p><label for="name">Name of Sport:</label>
+         <input type="text" name="sport" value="@Request.Form["sport"]" />
+          @Html.ValidationMessage("sport")
+      </p>
+ 
+      <p><label for="location">Location:</label>
+         <input type="text" name="location" value="@Request.Form["location"]" />
+          @Html.ValidationMessage("location")
+      </p>
+ 
+      <p><label for="time">Meeting Time:</label>
+         <input type="text" name="time" value="@Request.Form["time"]" />
+          @Html.ValidationMessage("time")
+      </p>
+ 
+      <p><label for="coach">Coach:</label>
+         <input type="text" name="coach" value="@Request.Form["coach"]" />
+          @Html.ValidationMessage("coach")
+      </p>
+ 
+      <p><label for="cost">Cost:</label>
+         <input type="text" name="cost" value="@Request.Form["cost"]" />
+          @Html.ValidationMessage("cost")
+      </p>
+ 
+      <p><label for="information">Information:</label>
+         <textarea name="information" rows="5" cols="25"></textarea>
+          @Html.ValidationMessage("information")
+      </p>
+      <p><input type="submit" name="buttonSubmit" value="Add Sport" /></p>
+    </fieldset>
+  </form>
+    <a class="one" href="~/sports">Return to sport listing</a>
+   
+</body>
+</html>
+
+

@@ -1,0 +1,42 @@
+body {
+    background-image: url("water.jpg");
+    background-size:100%;
+    background-repeat:no-repeat;
+    height: 100%;
+    width: 100%;
+    background-attachment: fixed;
+ 
+}
+ 
+ 
+.button {
+    background-color: #e66b6b; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+ 
+ 
+h1 {
+    color: #e0ffff;
+    text-align: center;
+    font-family: arial;
+    font-style: bold;
+    font-size: 100px;
+}
+p.two {
+    color: #B0C4DE;
+    text-align: center;
+    font-size: 30px;
+}
+ 
+p.three {
+    color: white;
+    font-family: verdana;
+    font-size: 15px;
+    text-align: center
+}
